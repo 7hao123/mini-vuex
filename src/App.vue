@@ -3,10 +3,10 @@ import { computed } from "vue";
 import { useStore } from "@/vuex/index";
 
 const store = useStore();
-console.log("store", store);
+console.log("store", store.state.count);
 const count = computed(() => store.state.count);
-const aCount = computed(() => store.state.aCount.state.count);
-const bCount = computed(() => store.state.bCount.state.count);
+const aCount = computed(() => store.state.aCount.count);
+const bCount = computed(() => store.state.bCount.count);
 const increment = () => store.commit("increment");
 // const incrementByFive = () => store.commit("incrementBy", 5);
 const incrementAsync = () => store.dispatch("incrementAsync");

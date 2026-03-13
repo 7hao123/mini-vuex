@@ -14,4 +14,19 @@ export default class Module {
   forEachChild(callback) {
     forEachValue(this._children, callback);
   }
+  forEachGetter(callback) {
+    if (this._raw.getters) {
+      forEachValue(this._raw.getters, callback);
+    }
+  }
+  forEachMutation(callback) {
+    if (this._raw.mutations) {
+      forEachValue(this._raw.mutations, callback);
+    }
+  }
+  forEachAction(callback) {
+    if (this._raw.actions) {
+      forEachValue(this._raw.actions, callback);
+    }
+  }
 }
