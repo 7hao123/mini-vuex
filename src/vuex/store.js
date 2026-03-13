@@ -21,7 +21,6 @@ export class Store {
     // 对module形成树结构
     const store = this;
     this._modules = new ModuleCollection(options);
-    console.log("this._modules", this._modules);
     store._wrapGetters = Object.create(null);
     store._mutations = Object.create(null);
     store._actions = Object.create(null);
@@ -30,8 +29,12 @@ export class Store {
     // state形成树结构
     installModule(this, state, [], this._modules.root);
     resetStoreState(this, state);
-    console.log("state", state);
+    store._subscribers = [];
+    options.plugins && options.plugins.forEach((plugin) => plugin(this));
     // console.log("store", store);
+  }
+  subscribe(fn) {
+    this._subscribers.push(fn);
   }
   get state() {
     return this._state.data;
@@ -45,7 +48,12 @@ export class Store {
     for (let i = 0; i < entry.length; i++) {
       entry[i](payload);
     }
+    this._subscribers.forEach((sub) => sub({ type, payload }, this.state));
   };
+
+  replaceState(newState) {
+    this._state.data = newState;
+  }
 
   dispatch = (type, payload) => {
     const entry = this._actions[type];

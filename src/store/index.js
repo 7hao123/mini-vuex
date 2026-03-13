@@ -1,6 +1,17 @@
 import { createStore } from "@/vuex/index";
 
+function customPlugin(store) {
+  let local = localStorage.getItem("state");
+  if (local) {
+    store.replaceState(JSON.parse(local));
+  }
+  store.subscribe((mutation, state) => {
+    localStorage.setItem("state", JSON.stringify(state));
+  });
+}
+
 const store = createStore({
+  plugins: [customPlugin],
   state: {
     count: 0,
   },
