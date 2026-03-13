@@ -5,11 +5,11 @@ import { useStore } from "@/vuex/index";
 const store = useStore();
 console.log("store", store);
 const count = computed(() => store.state.count);
-
-// const increment = () => store.commit("increment");
-// const decrement = () => store.commit("decrement");
+const aCount = computed(() => store.state.aCount.state.count);
+const bCount = computed(() => store.state.bCount.state.count);
+const increment = () => store.commit("increment");
 // const incrementByFive = () => store.commit("incrementBy", 5);
-// const incrementAsync = () => store.dispatch("incrementAsync");
+const incrementAsync = () => store.dispatch("incrementAsync");
 </script>
 
 <template>
@@ -19,11 +19,15 @@ const count = computed(() => store.state.count);
       <p class="count">{{ count }}</p>
       {{ $store.state.count }}
       <div class="actions">
-        <button type="button" @click="$store.state.count--">-1</button>
-        <button type="button" @click="$store.state.count++">+1</button>
-        {{ $store.getters.doubleCount }}
+        <button type="button" @click="$store.state.count++">store修改</button>
+        <button type="button" @click="increment">同步+1</button>
         <button type="button" @click="incrementAsync">异步 +1</button>
+        {{ $store.getters.doubleCount }}
       </div>
+      <hr />
+      <h1 class="title">模块化 Count 示例</h1>
+      <p class="count">aCount: {{ aCount }}</p>
+      <p class="count">bCount: {{ bCount }}</p>
     </section>
   </main>
 </template>
