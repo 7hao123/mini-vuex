@@ -3,6 +3,7 @@ export default class Module {
   constructor(rawModule) {
     this._raw = rawModule;
     this.state = rawModule.state;
+    this.namespaced = rawModule.namespaced;
     this._children = {};
   }
   addChild(key, module) {

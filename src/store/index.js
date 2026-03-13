@@ -32,6 +32,7 @@ const store = createStore({
   modules: {
     //子模块，实现逻辑的拆分
     aCount: {
+      namespaced: true,
       state: {
         count: 0,
       },
@@ -42,6 +43,7 @@ const store = createStore({
       },
       modules: {
         cCount: {
+          namespaced: true,
           state: { count: 0 },
           mutations: {
             add(state, payload) {
@@ -52,6 +54,7 @@ const store = createStore({
       },
     },
     bCount: {
+      namespaced: true,
       state: { count: 0 },
       mutations: {
         add(state, payload) {

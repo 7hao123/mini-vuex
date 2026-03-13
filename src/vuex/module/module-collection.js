@@ -27,4 +27,11 @@ export default class ModuleCollection {
     }
     console.log(this.root, path);
   }
+  getNamespaced(path) {
+    let module = this.root;
+    return path.reduce((namespace, key) => {
+      module = module.getChild(key);
+      return namespace + (module.namespaced ? key + "/" : "");
+    }, "");
+  }
 }
